@@ -21,3 +21,4 @@ JWT_SECRET=qUl9JHR0p66CiEsxTgHNlGYmTZjtNyWqHrw4GQUOFPaLYpIyitt8YXvZwRnSqPle
 php artisan serve 
 php artisan jwt:secret
 npm run dev
+# vue-user
