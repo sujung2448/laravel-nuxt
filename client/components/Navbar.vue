@@ -15,9 +15,16 @@
       <div id="navbarToggler" class="collapse navbar-collapse">
         <ul class="navbar-nav">
           <locale-dropdown />
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li> -->
+          <li class="nav-item">
+            <router-link :to="{ name: 'credit.list' }" class="nav-link">
+              Credit
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'debit.list' }" class="nav-link">
+              Debit
+            </router-link>
+          </li>
         </ul>
 
         <ul class="navbar-nav ml-auto">

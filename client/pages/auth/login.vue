@@ -79,6 +79,7 @@ export default {
         const response = await this.form.post('/login')
         data = response.data
       } catch (e) {
+        // console.log(e)
         return
       }
 

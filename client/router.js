@@ -25,7 +25,25 @@ const routes = [
       { path: 'profile', name: 'settings.profile', component: page('settings/profile.vue') },
       { path: 'password', name: 'settings.password', component: page('settings/password.vue') }
     ]
-  }
+  },
+  {
+    path: '/credit',
+    component: page('credit/index.vue'),
+    children: [
+      { path: '', redirect: { name: 'credit.create' } },
+      { path: 'create', name: 'credit.create', component: page('credit/create.vue') },
+      { path: 'list', name: 'credit.list', component: page('credit/list.vue') }
+    ]
+  },
+  {
+    path: '/debit',
+    component: page('debit/index.vue'),
+    children: [
+      { path: '', redirect: { name: 'debit.create' } },
+      { path: 'create', name: 'debit.create', component: page('debit/create.vue') },
+      { path: 'list', name: 'debit.list', component: page('debit/list.vue') }
+    ]
+  },
 ]
 
 export function createRouter () {

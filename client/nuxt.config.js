@@ -34,6 +34,7 @@ module.exports = {
   },
 
   css: [
+    './node_modules/element-ui/lib/theme-chalk/index.css',
     { src: '~assets/sass/app.scss', lang: 'scss' }
   ],
 
@@ -42,7 +43,9 @@ module.exports = {
     '~plugins/i18n',
     '~plugins/vform',
     '~plugins/axios',
+    '~plugins/moment',
     '~plugins/fontawesome',
+    '~plugins/element-ui',
     '~plugins/nuxt-client-init',
     { src: '~plugins/bootstrap', mode: 'client' }
   ],

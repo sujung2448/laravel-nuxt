@@ -10,6 +10,8 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CreditController;
+use App\Http\Controllers\DebitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +31,13 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::patch('settings/profile', [ProfileController::class, 'update']);
     Route::patch('settings/password', [PasswordController::class, 'update']);
+
+    Route::get('credit/list', [CreditController::class, 'list']);
+    Route::patch('credit/store', [CreditController::class, 'store']);
+    Route::get('debit/list', [DebitController::class, 'list']);
+    
+
+
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
