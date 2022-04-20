@@ -12,6 +12,7 @@ use App\Http\Controllers\Settings\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\DebitController;
+use App\Http\Controllers\BoardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,8 +35,17 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('credit/list', [CreditController::class, 'list']);
     Route::patch('credit/store', [CreditController::class, 'store']);
+    Route::post('credit/delete', [CreditController::class, 'delete']); //개별삭제
+    Route::post('credit/alldelete', [CreditController::class, 'allDelete']); //선택삭제
+
     Route::get('debit/list', [DebitController::class, 'list']);
+    Route::patch('debit/store', [DebitController::class, 'store']);
+    Route::post('debit/delete', [DebitController::class, 'delete']);
+    Route::post('debit/alldelete', [DebitController::class, 'allDelete']);
     
+    Route::get('board/list', [BoardController::class, 'list']);
+    Route::post('board/store', [BoardController::class, 'store']);
+    Route::post('board/show', [BoardController::class, 'show']);
 
 
 });

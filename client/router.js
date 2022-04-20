@@ -44,6 +44,16 @@ const routes = [
       { path: 'list', name: 'debit.list', component: page('debit/list.vue') }
     ]
   },
+  {
+    path: '/board',
+    component: page('board/index.vue'),
+    children: [
+      { path: '', redirect: { name: 'board.create' } },
+      { path: 'create', name: 'board.create', component: page('board/create.vue') },
+      { path: 'list', name: 'board.list', component: page('board/list.vue') },
+      { path: 'show', name: 'board.show', component: page('board/show.vue') }
+    ]
+  }
 ]
 
 export function createRouter () {

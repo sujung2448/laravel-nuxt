@@ -25,6 +25,11 @@
               Debit
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'board.list' }" class="nav-link">
+              Board
+            </router-link>
+          </li>
         </ul>
 
         <ul class="navbar-nav ml-auto">

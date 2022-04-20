@@ -4,16 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\credit;
+use Exception;
+use Log;
 
 class CreditController extends Controller
 
 {
 
-    // public function index()
-    // {
-    //     return view('moneys.index');
-    // }
-    
     public function list()
     {
         $credits = Credit::where('user_id', auth()->user()->id)
@@ -21,8 +18,56 @@ class CreditController extends Controller
             ->with('user')
             ->orderBy('id', 'desc')->paginate(5);
 
-        return response()->json($credits);
+        return response() -> json($credits);
     }
+
+    public function delete(Request $request)
+    {
+          $credits = Credit::where('id', $request->input('id'))->first();
+                      // ->update(['deleted_at' => now()]);
+        try {
+          if($credits->status !== 0){
+            $credits->deleted_at = now();
+            $credits->save();
+            return response() -> json("success");
+          }
+          if($credits->status == 0){
+              throw new Exception('error');
+          } 
+        } catch (\Throwable $th) {
+            return response() -> json("error");
+        }  
+    }
+
+    public function allDelete(Request $request)
+    {
+      // Log::info($request->input('ids'));
+    
+      if(!$request->input('ids')) {
+        return response() -> json("err");
+      }
+      
+      foreach ($request->input('ids') as $key => $value) {
+        
+        $credit = Credit::where('id', $value['id'])->first();
+                  
+        try {
+          if($credit->status !== 0){
+            $credit->deleted_at = now();
+            $credit->save();
+            // return response() -> json("success");
+          }
+          if($credit->status == 0){
+              throw new Exception('error');
+          } 
+        } catch (\Throwable $th) {
+            return response() -> json("error");
+        }         
+      }
+      return response() -> json("success");
+    }
+
+    
 
     public function credit()
     {
@@ -81,14 +126,14 @@ class CreditController extends Controller
         }
     }
 
-    public function delete(Request $request)
-    {
-        // dd($request->all());
-        Credit::where('id', $request->input('id'))
-                 ->update(['deleted_at' => now()]);
-        // dump($request->all());
-        return redirect() -> route('credit.list');
-    }
+    // public function delete(Request $request)
+    // {
+    //     // dd($request->all());
+    //     Credit::where('id', $request->input('id'))
+    //              ->update(['deleted_at' => now()]);
+    //     // dump($request->all());
+    //     return redirect() -> route('credit.list');
+    // }
 
 
 }

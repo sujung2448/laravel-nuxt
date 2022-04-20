@@ -18,15 +18,23 @@
         <div class="col-md-7 offset-md-3">
           <span class="btn btn-info btn-sm"
                 @click="addAmount(10000)"
-          >10000
+          >10,000
           </span>
           <span class="btn btn-info btn-sm"
-                @click="addAmount(10000)"
-          >10000
+                @click="addAmount(50000)"
+          >50,000
           </span>
           <span class="btn btn-info btn-sm"
-                @click="addAmount(10000)"
-          >10000
+                @click="addAmount(100000)"
+          >100,000
+          </span>
+          <span class="btn btn-info btn-sm"
+                @click="addAmount(500000)"
+          >500,000
+          </span>
+          <span class="btn btn-info btn-sm"
+                @click="addAmount(1000000)"
+          >1,000,000
           </span>
           <span class="btn btn-info btn-sm"
                 @click="resetAmount"
@@ -78,12 +86,12 @@ export default {
 
   methods: {
     update () {
-      this.$confirm('This will permanently delete the file. Continue?', 'Warning', {
+      this.$confirm('해당 금액을 충전하시겠습니까?', 'Warning', {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning'
       }).then(() => {
-        if (this.form.amount < 10000) {
+        if (this.form.amount % 10000 > 0) {
           this.$message({
             type: 'error',
             message: '신청 금액을 확인해주세요'
@@ -94,7 +102,7 @@ export default {
           this.$store.dispatch('auth/updateUser', { user })
           this.$message({
             type: 'success',
-            message: 'sdfds.'
+            message: '정상적으로 신청이 완료되었습니다.'
           // duration: 0,
           // showClose:true
           })

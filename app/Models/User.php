@@ -52,8 +52,14 @@ class User extends Authenticatable implements JWTSubject
 
     public function debit()
     {
-        return $this->hasMany('App\Models\debit');
+        return $this->hasMany('App\Models\Debit');
     }
+
+    public function board()
+    {
+        return $this->hasMany('App\Models\Board');
+    }
+
     protected $appends = [
         'photo_url',
     ];

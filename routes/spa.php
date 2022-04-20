@@ -13,5 +13,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "spa" middleware group.
 |
 */
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
 Route::get('{path}', SpaController::class)->where('path', '(.*)');
