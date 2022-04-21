@@ -51,7 +51,8 @@ const routes = [
       { path: '', redirect: { name: 'board.create' } },
       { path: 'create', name: 'board.create', component: page('board/create.vue') },
       { path: 'list', name: 'board.list', component: page('board/list.vue') },
-      { path: 'show', name: 'board.show', component: page('board/show.vue') }
+      { path: 'show/:id', name: 'board.show', component: page('board/show.vue') },
+      { path: 'edit/:id', name: 'board.edit', component: page('board/edit.vue') }
     ]
   }
 ]

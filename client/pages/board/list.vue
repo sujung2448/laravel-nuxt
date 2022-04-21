@@ -22,11 +22,11 @@
           <td class="text-center">
             {{ item.id }}
           </td>
-          <td class="text-center">
+          <td class="detail text-center" @click="detail(item.id)">
             {{ item.title }}
           </td>
           <td class="text-center">
-            {{ user.name }}
+            {{ item.user.name }}
           </td>
           <td class="text-center" scope="row">
             {{ $moment(item.created_at).format("YYYY-MM-DD kk:mm:ss") }}
@@ -67,16 +67,22 @@ export default {
     getList (page = 1) {
       axios.get('/board/list?page=' + page)
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           this.laravelData = res.data
           this.list = res.data.data
         })
+    },
+    detail (id) {
+      this.$router.push({ name: 'board.show', params: { id } })
     }
   }
-
 }
 </script>
 
 <style>
+.detail {
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 </style>

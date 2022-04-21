@@ -45,7 +45,12 @@ Route::group(['middleware' => 'auth:api'], function () {
     
     Route::get('board/list', [BoardController::class, 'list']);
     Route::post('board/store', [BoardController::class, 'store']);
-    Route::post('board/show', [BoardController::class, 'show']);
+    Route::get('board/show/{id}', [BoardController::class, 'show']);
+    Route::delete('board/{id}', [BoardController::class, 'destroy']);
+    Route::get('board/edit/{id}', [BoardController::class, 'edit']);
+    Route::put('board/{id}', [BoardController::class, 'update']);
+
+
 
 
 });

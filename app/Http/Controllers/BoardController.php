@@ -27,13 +27,52 @@ class BoardController extends Controller
 
     public function list()
     {
-        $boards = Board::where('user_id', auth()->user()->id)
-            ->whereNull('deleted_at') 
+        $boards = Board::whereNull('deleted_at')
             ->with('user')
             ->orderBy('id', 'desc')->paginate(10);
 
-
         return response() -> json($boards);
+    }
+    
+    public function show($id)
+    {
+        $board = Board::where('id', $id) -> first();
+
+        return response() -> json($board);
+    }
+    
+    public function destroy($id)
+    {
+        $board = Board::find( $id) 
+            ->update(['deleted_at' => now()]);
+
+        // $board -> delete();
+
+        return response() -> json($board);
+    }
+
+    public function edit($id)
+    {
+        $board = Board::where('id', $id) -> first();
+        
+        return response() -> json($board);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validation = $request -> validate([
+            'title' => 'required',
+            'contents' => 'required'
+        ]);
+        
+
+        $board = Board::where('id', $id) -> first();
+
+        $board -> title = $validation['title'];
+        $board -> contents = $validation['contents'];
+        $board -> save();
+
+        return response() -> json($board);
     }
     
     public function create()
@@ -56,42 +95,42 @@ class BoardController extends Controller
     //     return redirect() -> route('boards.index');
     // }
 
-    public function show($id)
-    {
-        $board = Board::where('id', $id) -> first();
-        return view('boards.show', compact('board'));
-    }    
+    // public function show($id)
+    // {
+    //     $board = Board::where('id', $id) -> first();
+    //     return view('boards.show', compact('board'));
+    // }    
     
-    public function edit($id)
-    {
-        $board = Board::where('id', $id) -> first();
-        return view('boards.edit', compact('board'));
-    }
+    // public function edit($id)
+    // {
+    //     $board = Board::where('id', $id) -> first();
+    //     return view('boards.edit', compact('board'));
+    // }
 
-    public function update(Request $request, $id)
-    {
-        $validation = $request -> validate([
-            'title' => 'required',
-            'contents' => 'required'
-        ]);
+    // public function update(Request $request, $id)
+    // {
+    //     $validation = $request -> validate([
+    //         'title' => 'required',
+    //         'contents' => 'required'
+    //     ]);
         
 
-        $board = Board::where('id', $id) -> first();
+    //     $board = Board::where('id', $id) -> first();
 
-        $board -> title = $validation['title'];
-        $board -> contents = $validation['contents'];
-        $board -> save();
+    //     $board -> title = $validation['title'];
+    //     $board -> contents = $validation['contents'];
+    //     $board -> save();
 
-        return redirect() -> route('boards.show', $id);
-    }
+    //     return redirect() -> route('boards.show', $id);
+    // }
 
-    public function destroy($id)
-    {
-        $board = Board::where('id', $id) -> first();
-        $board -> delete();
+    // public function destroy($id)
+    // {
+    //     $board = Board::where('id', $id) -> first();
+    //     $board -> delete();
 
-        return redirect() -> route('boards.index');
-    }
+    //     return redirect() -> route('boards.index');
+    // }
 
 
 

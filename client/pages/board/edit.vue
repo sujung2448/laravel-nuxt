@@ -9,7 +9,7 @@
       <textarea v-model="contents" class="form-control" rows="10" />
     </div>
     <div class="mt-3 text-center">
-      <el-button type="primary" icon="el-icon-check" round @click="write">
+      <el-button type="primary" icon="el-icon-check" round @click="update">
         저장
       </el-button>
       <el-button type="danger" icon="el-icon-refresh-left" round @click="cancel">
@@ -20,20 +20,37 @@
 </template>
 
 <script>
+// import { mapGetters } from 'vuex'
 import axios from 'axios'
 
 export default {
-  name: 'Create',
+  name: 'Edit',
   data: () => ({
+    edit: {},
     title: '',
     contents: ''
+
   }),
+  mounted () {
+    this.getEdit()
+  },
   methods: {
+    getEdit () {
+      const editId = this.$route.params.id
+      axios.get(`/board/edit/${editId}`)
+        .then((res) => {
+          // console.log(res)
+          this.edit = res.data
+          this.title = this.edit.title
+          this.contents = this.edit.contents
+          // console.log(this.edit.title)
+        })
+    },
     cancel () {
       this.$router.push({ name: 'board.list' })
     },
-    write () {
-      axios.post('/board/store', {
+    update () {
+      axios.put(`/board/${this.$route.params.id}`, {
         title: this.title,
         contents: this.contents
       })
@@ -48,6 +65,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style>
