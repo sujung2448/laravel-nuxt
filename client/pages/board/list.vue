@@ -24,6 +24,9 @@
           </td>
           <td class="detail text-center" @click="detail(item.id)">
             {{ item.title }}
+            <span v-if="item.view_comment_count > 0">
+              [{{ item.view_comment_count }}]
+            </span>
           </td>
           <td class="text-center">
             {{ item.user.name }}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Board;
+use App\Models\Comment;
 
 class BoardController extends Controller
 {
@@ -29,6 +30,7 @@ class BoardController extends Controller
     {
         $boards = Board::whereNull('deleted_at')
             ->with('user')
+            ->withCount('viewComment')   //null값만 가져오기 위해 모델을 따로 지정함
             ->orderBy('id', 'desc')->paginate(10);
 
         return response() -> json($boards);
@@ -36,9 +38,15 @@ class BoardController extends Controller
     
     public function show($id)
     {
-        $board = Board::where('id', $id) -> first();
+        $board = Board::where('id', $id)-> first(); 
+        $commentList = Comment::where('board_id', $id)
+            ->with('user')
+            ->whereNull('deleted_at') //null인것만 가져오게..
+            ->orderby('created_at','desc')
+            ->get();
+        $data = ['board'=> $board, 'comment' => $commentList];
 
-        return response() -> json($board);
+        return response() -> json($data);
     }
     
     public function destroy($id)

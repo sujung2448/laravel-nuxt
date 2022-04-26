@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\DebitController;
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,12 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::delete('board/{id}', [BoardController::class, 'destroy']);
     Route::get('board/edit/{id}', [BoardController::class, 'edit']);
     Route::put('board/{id}', [BoardController::class, 'update']);
+
+    Route::post('comment/store', [CommentController::class, 'store']);
+    // Route::get('comment/list', [CommentController::class, 'list']);
+    Route::delete('comment/{id}', [CommentController::class, 'commentDelete']);
+    Route::put('comment/{id}', [CommentController::class, 'commentUpdate']);
+
 
 
 
